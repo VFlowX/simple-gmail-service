@@ -5,7 +5,6 @@ https.globalAgent.options.rejectUnauthorized = false;
 const app = express();
 const mailService = require("./mailing/mail");
 
-const client = connected._client;
 app.use(bodyParser.json({
   limit: "50mb"
 }));
@@ -38,7 +37,7 @@ app.get('/', async function (req, res) {
 app.post('/sendMail', async function (req, res) {
   let body = req.body;
   if (body && body.to && body.subject && body.templateHTML && body.data) {
-    let msg = await mailService.sendMail(client, {
+    let msg = await mailService.sendMail({
       to: body.to,
       subject: body.subject,
       template: body.templateHTML,
